@@ -7,7 +7,7 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Page Title',
+      title: 'Battleship',
       template: './src/index.html',
     }),
   ],
