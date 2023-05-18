@@ -29,4 +29,20 @@ describe('Ship functionality tests', () => {
     newShip.hit();
     expect(newShip.isSunk()).toBe(true);
   });
+
+  test('test that ship health is no longer impacted when it has been sunk', () => {
+    const newShip = new ship('antero', 'submarine');
+    newShip.hit();
+    newShip.hit();
+    newShip.hit();
+    newShip.hit();
+    expect(newShip.getHealth()).toBe(0);
+  });
+
+  test('test that ship isnt sunk, when health is above zero', () => {
+    const newShip = new ship('antero', 'submarine');
+    newShip.hit();
+    newShip.hit();
+    expect(newShip.isSunk()).toBe(false);
+  });
 });

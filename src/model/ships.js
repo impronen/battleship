@@ -9,7 +9,7 @@ export class ship {
     else if (this.type === 'battleship') return 4;
     else if (this.type === 'cruiser') return 3;
     else if (this.type === 'submarine') return 3;
-    else return 2;
+    else if (this.type === 'destroyer') return 2;
   }
   getPlayer() {
     return this.player;
@@ -19,7 +19,7 @@ export class ship {
     return this.health;
   }
   hit() {
-    this.health = this.health - 1;
+    if (this.health >= 1) this.health = this.health - 1;
     return this.health;
   }
   isSunk() {
