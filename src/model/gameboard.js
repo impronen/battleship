@@ -61,7 +61,7 @@ export class gameBoard {
     } else if (orientation === 'vertical') {
       lastSquare[1] = y - length;
     }
-    if (lastSquare[0] <= 7 && lastSquare[1] >= 0) {
+    if (lastSquare[0] <= 9 && lastSquare[1] >= 0) {
       return true;
     }
     return false;
