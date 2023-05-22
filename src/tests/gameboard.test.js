@@ -58,6 +58,13 @@ describe('Gameboard: tests for ship placement', () => {
     newBoard.placeShip([2, 5], 'vertical', battleship);
     expect(newBoard.getSquareContent(2, 2)).toBe('battleship');
   });
+  test('does not allow to place ship that would go outside the board', () => {
+    const newBoard = new gameBoard();
+    const battleship = new ship('antero', 'battleship');
+    expect(newBoard.placeShip([1, 1], 'vertical', battleship)).toBe(
+      'ERROR - outside the board!'
+    );
+  });
 });
 
 /* describe('Gameboard: tests for ship receiving an attack', () => {}); */
