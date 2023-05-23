@@ -1,5 +1,3 @@
-/* import { ship } from './ships'; */
-
 export class gameBoard {
   constructor(player) {
     this.player = player;

@@ -46,13 +46,13 @@ describe('Gameboard: tests for ship placement', () => {
     newBoard.placeShip([1, 5], 'horizontal', battleship);
     expect(newBoard.getSquareContent(5, 5)).toBe('battleship');
   });
-  test('test ship placed horizontally is in the grid (square 1)', () => {
+  test('test ship placed horizontally is in the grid (from square 2,5)', () => {
     const newBoard = new gameBoard();
     const battleship = new ship('antero', 'battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
     expect(newBoard.getSquareContent(2, 5)).toBe('battleship');
   });
-  test('test ship placed horizontally is in the grid (square 2)', () => {
+  test('test ship placed horizontally is in the grid (from square 2,5)', () => {
     const newBoard = new gameBoard();
     const battleship = new ship('antero', 'battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
