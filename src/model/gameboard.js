@@ -36,9 +36,11 @@ export class gameBoard {
   placeShip([x, y], orientation, ship) {
     let length = ship.getSquares();
     let type = ship.getType();
-    // Checks for legal move (ship will be in the grid + )
+    // Checks for legal move (ship will be in the grid + no ships in there)
     if (!this.legalMove([x, y], orientation, length))
       return 'ERROR - outside the board!';
+    if (!!this.isOccupied([x, y], orientation, length))
+      return 'ERROR - there be ships there already';
     // We continue with placement
     if (orientation === 'horizontal') {
       while (length > 0) {
@@ -67,8 +69,16 @@ export class gameBoard {
     return false;
   }
   isOccupied([x, y], orientation, length) {
-    // do similar "last coordinates" as above
-    // do a while loop where you add / subtrack based on orientation
-    // if inside the loop you encounter a cell that is not null, return error
+    if (orientation === 'horizontal') {
+      while (length > 0) {
+        if (this.getSquareContent(x, y) != null) return true;
+        x++;
+        length--;
+      }
+    } else if (orientation === 'vertical') {
+      if (this.getSquareContent(x, y) != null) return true;
+      y--;
+      length--;
+    }
   }
 }

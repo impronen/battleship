@@ -52,7 +52,7 @@ describe('Gameboard: tests for ship placement', () => {
     newBoard.placeShip([2, 5], 'vertical', battleship);
     expect(newBoard.getSquareContent(2, 5)).toBe('battleship');
   });
-  test('test ship placed horizontally is in the grid (square 1)', () => {
+  test('test ship placed horizontally is in the grid (square 2)', () => {
     const newBoard = new gameBoard();
     const battleship = new ship('antero', 'battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
@@ -79,6 +79,15 @@ describe('Gameboard: tests for ship placement', () => {
     newBoard.placeShip([2, 5], 'vertical', battleship);
     const carrier = new ship('antero', 'carrier');
     expect(newBoard.placeShip([2, 5], 'vertical', carrier)).toBe(
+      'ERROR - there be ships there already'
+    );
+  });
+  test('does not allow to place a ship when a square where the ship would be is already occupied (horizontal)', () => {
+    const newBoard = new gameBoard();
+    const battleship = new ship('antero', 'battleship');
+    newBoard.placeShip([4, 6], 'horizontal', battleship);
+    const carrier = new ship('antero', 'carrier');
+    expect(newBoard.placeShip([4, 6], 'horizontal', battleship)).toBe(
       'ERROR - there be ships there already'
     );
   });
