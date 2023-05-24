@@ -19,18 +19,13 @@ describe('Player: AI functionality', () => {
     newPlayer.getRandomCoordinates();
     newPlayer.getRandomCoordinates();
     newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    expect(newPlayer.checkShots().length).toBe(16);
+    expect(newPlayer.checkShots().length).toBe(4);
+  });
+  test('Coordinates for ship placement arent recorded', () => {
+    const newPlayer = new Player('BOB', 'AI');
+    newPlayer.getRandomCoordinates(true);
+    newPlayer.getRandomCoordinates(true);
+    newPlayer.getRandomCoordinates(true);
+    expect(newPlayer.checkShots().length).toBe(0);
   });
 });

@@ -17,7 +17,7 @@ export class Player {
   }
 
   // To be used by the AI player for ship placement and shooty things
-  getRandomCoordinates() {
+  getRandomCoordinates(placement) {
     let coords = [];
     let i = 2;
     while (i > 0) {
@@ -25,6 +25,9 @@ export class Player {
       coords.push(Math.round(random));
       i--;
     }
+    // allows the method to be used when placing ships, error checking for
+    // viability of produced coords is done in gameboard
+    if (placement === true) return coords;
     // Recursive case to check if shots array already contains the generated number
     if (
       this.shots.some((shotSquare) =>
