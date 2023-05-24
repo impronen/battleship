@@ -1,6 +1,5 @@
-export class gameBoard {
+export class Gameboard {
   constructor(player) {
-    this.player = player;
     this._sunkShips = 0;
     this._board = Array(10).fill(Array(10).fill(null));
   }

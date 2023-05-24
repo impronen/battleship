@@ -1,12 +1,18 @@
+import { Gameboard } from './gameboard';
+
 export class Player {
   constructor(name, type) {
-    this.Player = name;
+    this.name = name;
     this.type = type;
     this.ships = [];
     this.shots = [];
+    this.board = new Gameboard();
   }
   getType() {
     return this.type;
+  }
+  getName() {
+    return this.name;
   }
 
   saveShot([x, y]) {
