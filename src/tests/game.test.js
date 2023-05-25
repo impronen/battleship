@@ -38,4 +38,13 @@ describe('Game: turns are changed appropriately', () => {
     newGame.changeTurn();
     expect(newGame.getCurrentPlayer()).toBe('antero');
   });
+  test('turn is not changed if a hit has happened', () => {
+    const newGame = new Game(
+      new Player('antero', 'human'),
+      new Player('Bob', 'AI')
+    );
+    let hit = true;
+    newGame.changeTurn(hit);
+    expect(newGame.getCurrentPlayer()).toBe('antero');
+  });
 });

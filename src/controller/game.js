@@ -18,6 +18,7 @@ export class Game {
     return this.currentPlayer;
   }
   changeTurn(hit = false) {
+    console.log(hit);
     let human = this.player1.getName();
     let ai = this.player2.getName();
     if (hit === true) return;

@@ -36,38 +36,38 @@ describe('Gameboard: tests for hitting a square and what did it contain', () => 
 describe('Gameboard: tests for ship placement', () => {
   test('test ship placed horizontally is in the grid (square 1)', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([1, 5], 'horizontal', battleship);
     expect(newBoard.getSquareContent(1, 5)).toBe('battleship');
   });
   test('test ship placed horizontally is in the grid (square 4)', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([1, 5], 'horizontal', battleship);
     expect(newBoard.getSquareContent(5, 5)).toBe('battleship');
   });
   test('test ship placed horizontally is in the grid (from square 2,5)', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
     expect(newBoard.getSquareContent(2, 5)).toBe('battleship');
   });
   test('test ship placed horizontally is in the grid (from square 2,5)', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
     expect(newBoard.getSquareContent(2, 2)).toBe('battleship');
   });
   test('does not allow to place ship that would go outside the board', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     expect(newBoard.placeShip([1, 1], 'vertical', battleship)).toBe(
       'ERROR - outside the board!'
     );
   });
   test('does not allow to place ship that would go outside the board', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     expect(newBoard.placeShip([7, 0], 'horizontal', battleship)).toBe(
       'ERROR - outside the board!'
     );
@@ -75,18 +75,18 @@ describe('Gameboard: tests for ship placement', () => {
 
   test('does not allow to place a ship when a square where the ship would be is already occupied', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([2, 5], 'vertical', battleship);
-    const carrier = new ship('antero', 'carrier');
+    const carrier = new ship('carrier');
     expect(newBoard.placeShip([2, 5], 'vertical', carrier)).toBe(
       'ERROR - there be ships there already'
     );
   });
   test('does not allow to place a ship when a square where the ship would be is already occupied (horizontal)', () => {
     const newBoard = new Gameboard();
-    const battleship = new ship('antero', 'battleship');
+    const battleship = new ship('battleship');
     newBoard.placeShip([4, 6], 'horizontal', battleship);
-    const carrier = new ship('antero', 'carrier');
+    const carrier = new ship('carrier');
     expect(newBoard.placeShip([4, 6], 'horizontal', battleship)).toBe(
       'ERROR - there be ships there already'
     );

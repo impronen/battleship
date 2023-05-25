@@ -1,6 +1,5 @@
 export class ship {
-  constructor(player, type) {
-    this.player = player;
+  constructor(type) {
     this.type = type;
     this.health = this.getSquares();
   }
@@ -13,9 +12,6 @@ export class ship {
     else if (this.type === 'destroyer') return 2;
   }
 
-  getPlayer() {
-    return this.player;
-  }
   getType() {
     return this.type;
   }
