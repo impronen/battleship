@@ -6,7 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Battleship</title>
   </head>
+  <header>
+    <h1>BATTLESHIP</h1>
+  </header>
   <body>
-    <p>Battleship</p>
+    <main>
+      <div class="top">
+        <div class="player">
+          <h3 class="playertype">HUMAN</h3>
+          <h3 class="humanplayerName"></h3>
+        </div>
+        <div class="currentPlayer"></div>
+        <div class="player">
+          <h3 class="playertype">AI</h3>
+          <h3 class="aiplayerName"></h3>
+        </div>
+      </div>
+      <div class="gameboard-container">
+        <div class="humangameboard">X</div>
+        <div class="aigameboard">X</div>
+      </div>
+      <div class="guidance-box"></div>
+      <div class="controls">
+        <button id="orientation">Orientation</button>
+        <div class="ships"></div>
+        <button id="start">START</button>
+      </div>
+    </main>
   </body>
 </html>
