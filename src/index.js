@@ -8,3 +8,4 @@ import { events } from './view/eventlisteners';
 dom.createGameboards();
 events.startListener();
 events.orientationListener();
+events.gridListener();

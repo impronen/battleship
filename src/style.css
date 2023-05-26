@@ -29,7 +29,7 @@ header {
 }
 
 button {
-  padding: 1%;
+  padding: 7px;
 }
 
 .top,
@@ -62,5 +62,5 @@ button {
 }
 
 .cell:hover {
-  background-color: var(--deep-orange);
+  background-color: var(--ut-orange);
 }

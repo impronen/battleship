@@ -5,10 +5,12 @@ export const dom = (() => {
     for (let i = 0; i <= 9; i++) {
       let column = document.createElement('div');
       column.classList.add('column');
+      column.dataset.index = i;
       board.appendChild(column);
       for (let l = 0; l <= 9; l++) {
         let cell = document.createElement('div');
         cell.classList.add('cell');
+        cell.dataset.index = l;
         column.appendChild(cell);
       }
     }
