@@ -6,6 +6,7 @@
   --selective-yellow: hsla(43, 100%, 51%, 1);
   --ut-orange: hsla(32, 100%, 49%, 1);
   --cool-gray: hsla(218, 17%, 72%);
+  --deep-orange: rgb(201, 58, 15);
 }
 
 body {
@@ -13,7 +14,7 @@ body {
     'Helvetica Neue', sans-serif;
   margin: 0;
   color: var(--selective-yellow);
-  background-color: var(--blue-green);
+  background-color: var(--prussian-blue);
 }
 
 main,
@@ -27,6 +28,10 @@ header {
   align-items: center;
 }
 
+button {
+  padding: 1%;
+}
+
 .top,
 .controls,
 .gameboard-container {
@@ -37,5 +42,25 @@ header {
 }
 
 .gameboard-container {
-  border: 1px;
+  margin: 2%;
+}
+
+.humangameboard,
+.aigameboard {
+  display: flex;
+  border: 1px solid;
+}
+
+.column {
+  min-width: 30px;
+}
+
+.cell {
+  background-color: var(--prussian-blue);
+  border: 1px solid;
+  min-height: 30px;
+}
+
+.cell:hover {
+  background-color: var(--deep-orange);
 }
