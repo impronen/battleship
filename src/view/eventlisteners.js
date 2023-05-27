@@ -1,21 +1,33 @@
 import { dom } from './dom';
+import { Game } from '../controller/game';
+import { Player } from '../model/player';
 
 export const events = (() => {
+  let humanGrid = document.querySelector('.humangameboard');
+
   function startListener() {
     const startButton = document.querySelector('#start');
     startButton.addEventListener('click', (event) => {
-      console.log('START BITCHES');
+      const newGame = new Game(
+        new Player('antero', 'human'),
+        new Player('Bob', 'AI')
+      );
+      console.log(newGame);
+      return newGame;
     });
   }
   function orientationListener() {
     const orientationButton = document.querySelector('#orientation');
-    orientationButton.addEventListener('click', (event) => {
-      gridListener();
-    });
+    orientationButton.addEventListener('click', (event) => {});
   }
-  function gridListener() {
+  function gridListener(player) {
     let humanGrid = document.querySelector('.humangameboard');
-    let columns = humanGrid.childNodes;
+    let aiGrid = document.querySelector('.aigameboard');
+    let columns = null;
+    if (player === 'human') {
+      columns = humanGrid.childNodes;
+    } else columns = aiGrid.childNodes;
+
     columns.forEach((column) => {
       column.addEventListener('click', (el) => {
         console.log([
@@ -29,10 +41,3 @@ export const events = (() => {
 
   return { startListener, orientationListener, gridListener };
 })();
-
-/* columns.forEach((column) => {
-    column.addEventListener('click', (el) => {
-      const index = [...el.parentElement.children];
-      console.log(el);
-    });
-  }); */
