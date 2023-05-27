@@ -5,6 +5,7 @@ export class Game {
   constructor(player1, player2) {
     this.player1 = player1;
     this.player2 = player2;
+    this.currentStage = shipPlacement;
     this.currentPlayer = this.player1.getName();
   }
 
@@ -17,6 +18,9 @@ export class Game {
   getCurrentPlayer() {
     return this.currentPlayer;
   }
+  getCurrentStage() {
+    return this.currentStage;
+  }
   changeTurn(hit = false) {
     let human = this.player1.getName();
     let ai = this.player2.getName();
@@ -26,5 +30,8 @@ export class Game {
     } else {
       this.currentPlayer = human;
     }
+  }
+  changeCurrentStage() {
+    this.currentStage = combat;
   }
 }
