@@ -1,4 +1,4 @@
-export class ship {
+export class Ship {
   constructor(type) {
     this.type = type;
     this.health = this.getSquares();

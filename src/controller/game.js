@@ -1,5 +1,6 @@
 import { Player } from '../model/player';
-import { gameBoard } from '../model/gameboard';
+import { GameBoard } from '../model/gameboard';
+import { Ship } from '../model/ships';
 
 export class Game {
   constructor(player1, player2) {
