@@ -21,12 +21,14 @@ export class Gameboard {
   setSquareContent(x, y, content) {
     this._board[x][y] = content;
   }
-
   hitSquare(x, y) {
     if (typeof this.getSquareContent(x, y) === 'string') return false;
     else {
       this._board[x][y] = 'hit';
     }
+  }
+  getFullBoard() {
+    return this._board;
   }
 
   // Ships - placement, checking for possible collisions

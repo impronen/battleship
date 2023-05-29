@@ -13,6 +13,8 @@ export const events = (() => {
         new Player('Bob', 'AI')
       );
       console.log(newGame);
+      newGame.player2.aiShipPlacement();
+      newGame.player2.board.getFullBoard();
       return newGame;
     });
   }

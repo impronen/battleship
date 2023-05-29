@@ -1,10 +1,11 @@
 import { Gameboard } from './gameboard';
+import { Ship } from './ships';
 
 export class Player {
   constructor(name, type) {
     this.name = name;
     this.type = type;
-    this.ships = [];
+    this.ships = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer'];
     this.shots = [];
     this.board = new Gameboard();
   }
@@ -47,8 +48,35 @@ export class Player {
     this.shots.push(coords);
   }
   getRandomOrientation() {
-    let random = Math.random() * (10 - 1) + 1;
-    if (random >= 5) return 'vertical';
-    return 'horizontal';
+    let orientationArray = [];
+    let i = 5;
+    while (i > 0) {
+      let random = Math.random() * (10 - 1) + 1;
+      if (random >= 5) orientationArray.push('vertical');
+      else orientationArray.push('horizontal');
+      i--;
+    }
+    return orientationArray;
+  }
+
+  // AI ship placement algo
+  aiShipPlacement() {
+    let orientationArray = this.getRandomOrientation();
+    let shipArray = this.ships;
+
+    while (shipArray.length > 0) {
+      let coordinates = this.getRandomCoordinates(true);
+      let i = 0;
+      console.log(shipArray[i]);
+      let nextShip = new Ship(shipArray[i]);
+      i++;
+      console.log(coordinates, orientationArray[0], nextShip);
+      console.log(typeof coordinates);
+      this.board.placeShip(coordinates, orientationArray[0], nextShip);
+      shipArray.splice(0, 1);
+      orientationArray.splice(0, 1);
+      let boardy = this.board.getFullBoard();
+      console.log(boardy);
+    }
   }
 }
