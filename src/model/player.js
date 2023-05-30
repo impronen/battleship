@@ -34,7 +34,9 @@ export class Player {
     }
     // allows the method to be used when placing ships, error checking for
     // viability of produced coords is done in gameboard
-    if (placement === true) return coords;
+    if (placement === true) {
+      return coords;
+    }
     // Recursive case to check if shots array already contains the generated number
     if (
       this.shots.some((shotSquare) =>
@@ -63,20 +65,19 @@ export class Player {
   aiShipPlacement() {
     let orientationArray = this.getRandomOrientation();
     let shipArray = this.ships;
-
-    while (shipArray.length > 0) {
-      let coordinates = this.getRandomCoordinates(true);
-      let i = 0;
-      console.log(shipArray[i]);
-      let nextShip = new Ship(shipArray[i]);
+    let i = 0;
+    while (i < 5) {
+      let nextShip = new Ship(this.ships[i]);
+      console.log(nextShip);
+      this.board.placeShip(
+        this.getRandomCoordinates(true),
+        orientationArray[0],
+        nextShip
+      );
       i++;
-      console.log(coordinates, orientationArray[0], nextShip);
-      console.log(typeof coordinates);
-      this.board.placeShip(coordinates, orientationArray[0], nextShip);
-      shipArray.splice(0, 1);
       orientationArray.splice(0, 1);
-      let boardy = this.board.getFullBoard();
-      console.log(boardy);
     }
+    let boardy = this.board.getFullBoard();
+    console.table(boardy);
   }
 }

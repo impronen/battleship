@@ -15,6 +15,7 @@ export const events = (() => {
       console.log(newGame);
       newGame.player2.aiShipPlacement();
       newGame.player2.board.getFullBoard();
+      console.log(newGame);
       return newGame;
     });
   }
