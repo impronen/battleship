@@ -7,7 +7,7 @@ export class Player {
     this.type = type;
     this.ships = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer'];
     this.shots = [];
-    this.board = new Gameboard();
+    this.board = new Gameboard(this.type);
   }
   getType() {
     return this.type;
@@ -72,7 +72,8 @@ export class Player {
       this.board.placeShip(
         this.getRandomCoordinates(true),
         orientationArray[0],
-        nextShip
+        nextShip,
+        'AI'
       );
       i++;
       orientationArray.splice(0, 1);

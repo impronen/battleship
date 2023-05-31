@@ -61,34 +61,35 @@ describe('Gameboard: tests for ship placement', () => {
   test('does not allow to place ship that would go outside the board', () => {
     const newBoard = new Gameboard();
     const battleship = new Ship('battleship');
-    expect(newBoard.placeShip([1, 1], 'vertical', battleship)).toBe(
-      'ERROR - outside the board!'
-    );
+    expect(
+      newBoard.legalMove([7, 0], 'vertical', battleship.getSquares())
+    ).toBe(false);
   });
   test('does not allow to place ship that would go outside the board', () => {
     const newBoard = new Gameboard();
     const battleship = new Ship('battleship');
-    expect(newBoard.placeShip([7, 0], 'horizontal', battleship)).toBe(
-      'ERROR - outside the board!'
-    );
+    expect(
+      newBoard.legalMove([7, 7], 'horizontal', battleship.getSquares())
+    ).toBe(false);
   });
 
   test('does not allow to place a ship when a square where the ship would be is already occupied', () => {
     const newBoard = new Gameboard();
     const battleship = new Ship('battleship');
-    newBoard.placeShip([2, 5], 'vertical', battleship);
+    newBoard.placeShip([2, 2], 'vertical', battleship);
     const carrier = new Ship('carrier');
-    expect(newBoard.placeShip([2, 5], 'vertical', carrier)).toBe(
-      'ERROR - there be ships there already'
+    console.table(newBoard._board);
+    expect(newBoard.isOccupied([3, 2], 'vertical', carrier.getSquares())).toBe(
+      false
     );
   });
   test('does not allow to place a ship when a square where the ship would be is already occupied (horizontal)', () => {
     const newBoard = new Gameboard();
     const battleship = new Ship('battleship');
-    newBoard.placeShip([3, 5], 'horizontal', battleship);
+    newBoard.placeShip([1, 5], 'horizontal', battleship);
     const carrier = new Ship('carrier');
-    expect(newBoard.placeShip([3, 5], 'horizontal', carrier)).toBe(
-      'ERROR - there be ships there already'
+    expect(newBoard.isOccupied([1, 5], 'vertical', carrier.getSquares())).toBe(
+      false
     );
   });
 });

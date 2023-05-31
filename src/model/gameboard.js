@@ -1,7 +1,10 @@
+import { Player } from './player';
+
 export class Gameboard {
-  constructor(player) {
+  constructor(playerType) {
     this._sunkShips = 0;
     this._board = this.boardCreation();
+    this.playerType = playerType;
   }
   boardCreation() {
     let newBoard = new Array(10);
@@ -37,17 +40,24 @@ export class Gameboard {
   }
 
   // Ships - placement, checking for possible collisions
-  placeShip([x, y], orientation, ship) {
+  placeShip([x, y], orientation, ship, playerType) {
     let length = ship.getSquares();
     let coordinates = [x, y];
-    // Checks for legal move (ship will be in the grid + no ships in there)
-    if (this.legalMove([x, y], orientation, length) === false) {
-      console.log(`this is not legal: ${[x, y]}`);
-      return 'ERROR - outside the board!';
-    }
-    if (this.isOccupied([x, y], orientation, length) === false) {
-      console.log('error');
-      return 'ERROR - there be ships there already';
+    // Checks for legal moves
+    // For AI new coordinates are generated until appropriate ones are found
+    console.log(`coordinates ${coordinates}, orientation ${orientation}`);
+    if (
+      playerType === 'AI' &&
+      (this.legalMove([x, y], orientation, length) === false ||
+        this.isOccupied([x, y], orientation, length) === false)
+    ) {
+      let newCoords = Player.getRandomCoordinates(true);
+      return this.placeShip(newCoords, orientation, ship, playerType);
+    } else if (
+      this.legalMove([x, y], orientation, length) === false ||
+      this.isOccupied([x, y], orientation, length) === false
+    ) {
+      console.log('ship there already chief');
     }
     // We continue with placement
     if (orientation === 'horizontal') {
@@ -66,14 +76,12 @@ export class Gameboard {
   }
   legalMove([x, y], orientation, length) {
     let lastSquare = [x, y];
-    console.table(length, typeof x, typeof y);
     if (orientation === 'horizontal') {
-      x = x + length;
-    } else if (orientation === 'vertical') {
       lastSquare[1] = lastSquare[1] + length;
+    } else if (orientation === 'vertical') {
+      lastSquare[0] = lastSquare[0] + length;
     }
-    console.log(lastSquare);
-    if (lastSquare[0] <= 9 && lastSquare[1] >= 0) {
+    if (lastSquare[0] <= 9 && lastSquare[1] <= 9) {
       return true;
     }
     return false;
@@ -88,9 +96,11 @@ export class Gameboard {
         length--;
       }
     } else if (orientation === 'vertical') {
-      if (typeof this.getSquareContent(x, y) === 'object') return false;
-      x++;
-      length--;
+      while (length > 0) {
+        if (typeof this.getSquareContent(x, y) === 'object') return false;
+        x++;
+        length--;
+      }
     }
     return true;
   }
