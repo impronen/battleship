@@ -210,3 +210,6 @@ The whole repo is here <https://github.com/impronen/battleship> and I'll gladly 
 
 **Idea from Discord**: Have you considered to let the Game class to be responsible for each board?
 I'm not sure that players need to manage the copy of their board, it also can help with the decoupling.
+
+**due to this**
+We shall be moving most of the things inside Player to Gameboard. The tests will be need to be worked to pass after those moves but after that all should be good. In the end, Player class will be super thin and almost like a shell for the Gameboard.
