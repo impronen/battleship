@@ -1,11 +1,13 @@
 import { Player } from '../model/player';
-import { GameBoard } from '../model/gameboard';
+import { Gameboard } from '../model/gameboard';
 import { Ship } from '../model/ships';
 
 export class Game {
   constructor(player1, player2) {
     this.player1 = player1;
     this.player2 = player2;
+    this.player1Board = new Gameboard(player1.getType());
+    this.player2Board = new Gameboard(player2.getType());
     this.currentStage = 'shipPlacement';
     this.currentPlayer = this.player1.getName();
   }

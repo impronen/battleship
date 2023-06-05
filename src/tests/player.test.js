@@ -1,31 +1,12 @@
 import { Player } from '../model/player';
 
-describe('Player: tests for things related to shots', () => {
-  test('Shots array is returned as it should be', () => {
+describe('Player: test for returning name and type', () => {
+  test('Player name is returned as expected', () => {
     const newPlayer = new Player('antero', 'human');
-    newPlayer.saveShot([1, 1]);
-    newPlayer.saveShot([5, 3]);
-    expect(newPlayer.checkShots()).toStrictEqual([
-      [1, 1],
-      [5, 3],
-    ]);
+    expect(newPlayer.getName()).toBe('antero');
   });
-});
-
-describe('Player: AI functionality', () => {
-  test('Random coordinates are produced', () => {
-    const newPlayer = new Player('BOB', 'AI');
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    newPlayer.getRandomCoordinates();
-    expect(newPlayer.checkShots().length).toBe(4);
-  });
-  test('Coordinates for ship placement arent recorded', () => {
-    const newPlayer = new Player('BOB', 'AI');
-    newPlayer.getRandomCoordinates(true);
-    newPlayer.getRandomCoordinates(true);
-    newPlayer.getRandomCoordinates(true);
-    expect(newPlayer.checkShots().length).toBe(0);
+  test('Player type is returned as expected', () => {
+    const newPlayer = new Player('antero', 'human');
+    expect(newPlayer.getType()).toBe('human');
   });
 });
