@@ -213,3 +213,11 @@ I'm not sure that players need to manage the copy of their board, it also can he
 
 **due to this**
 We shall be moving most of the things inside Player to Gameboard. The tests will be need to be worked to pass after those moves but after that all should be good. In the end, Player class will be super thin and almost like a shell for the Gameboard.
+
+### Next steps 6/6/23
+
+The AI ship placement works and a _lot_ of stuff has been delegated to Gameboard from Player. Next: the general game loop and human ship placement.
+
+Plans for this: constructing the function for ship placement phase for the player. This needs to take in a value for orientation and ship and coordinates. Ship will be created automatically based on an array with ship names that is read through in order, orierntation needs to be switched based on the button. Maybe make this a variable inside the player class, so it's easy to make the link to change it with a single function.
+
+Coordinates will be produced by the event listener that is already in place.
