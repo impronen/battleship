@@ -4,6 +4,7 @@ import { Player } from '../model/player';
 
 export const events = (() => {
   let humanGrid = document.querySelector('.humangameboard');
+  let orientation = 'horizontal';
 
   function startListener() {
     const startButton = document.querySelector('#start');
@@ -12,15 +13,16 @@ export const events = (() => {
         new Player('antero', 'human'),
         new Player('Bob', 'AI')
       );
-      console.log(newGame);
-      newGame.player2Board.aiShipPlacement();
-      console.log(newGame);
-      return newGame;
+      newGame.runGameLoop();
     });
   }
   function orientationListener() {
     const orientationButton = document.querySelector('#orientation');
-    orientationButton.addEventListener('click', (event) => {});
+    orientationButton.addEventListener('click', (event) => {
+      if (orientation != 'horizontal') orientation = 'horizontal';
+      else orientation = 'vertical';
+      console.log(orientation);
+    });
   }
   function gridListener(player) {
     let humanGrid = document.querySelector('.humangameboard');
@@ -31,12 +33,12 @@ export const events = (() => {
     } else columns = aiGrid.childNodes;
 
     columns.forEach((column) => {
-      column.addEventListener('click', (el) => {
-        console.log([
-          el.target.parentElement.dataset.index,
-          el.target.dataset.index,
-        ]);
-        return [el.target.parentElement.dataset.index, el.target.dataset.index];
+      column.addEventListener('click', (square) => {
+        return {
+          player: player,
+          x: Number(square.target.parentElement.dataset.index),
+          y: Number(square.target.dataset.index),
+        };
       });
     });
   }
