@@ -79,7 +79,7 @@ describe('Gameboard: tests for ship placement', () => {
     newBoard.placeShip([2, 2], 'vertical', battleship);
     const carrier = new Ship('carrier');
     console.table(newBoard._board);
-    expect(newBoard.isOccupied([3, 2], 'vertical', carrier.getSquares())).toBe(
+    expect(newBoard.notOccupied([3, 2], 'vertical', carrier.getSquares())).toBe(
       false
     );
   });
@@ -88,7 +88,7 @@ describe('Gameboard: tests for ship placement', () => {
     const battleship = new Ship('battleship');
     newBoard.placeShip([1, 5], 'horizontal', battleship);
     const carrier = new Ship('carrier');
-    expect(newBoard.isOccupied([1, 5], 'vertical', carrier.getSquares())).toBe(
+    expect(newBoard.notOccupied([1, 5], 'vertical', carrier.getSquares())).toBe(
       false
     );
   });

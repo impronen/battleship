@@ -5,11 +5,13 @@ import { Player } from '../model/player';
 export const events = (() => {
   let humanGrid = document.querySelector('.humangameboard');
   let orientation = 'horizontal';
+  let newGame = undefined;
 
   function startListener() {
     const startButton = document.querySelector('#start');
     startButton.addEventListener('click', (event) => {
-      const newGame = new Game(
+      if (typeof newGame === 'object') return;
+      newGame = new Game(
         new Player('antero', 'human'),
         new Player('Bob', 'AI')
       );
@@ -19,9 +21,7 @@ export const events = (() => {
   function orientationListener() {
     const orientationButton = document.querySelector('#orientation');
     orientationButton.addEventListener('click', (event) => {
-      if (orientation != 'horizontal') orientation = 'horizontal';
-      else orientation = 'vertical';
-      console.log(orientation);
+      orientation = orientation !== 'horizontal' ? 'horizontal' : 'vertical';
     });
   }
   function gridListener(player) {
@@ -34,11 +34,12 @@ export const events = (() => {
 
     columns.forEach((column) => {
       column.addEventListener('click', (square) => {
-        return {
+        console.log({
           player: player,
           x: Number(square.target.parentElement.dataset.index),
           y: Number(square.target.dataset.index),
-        };
+          orientation: orientation,
+        });
       });
     });
   }

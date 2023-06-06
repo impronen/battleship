@@ -6,7 +6,6 @@ export class Gameboard {
     this.sunkShips = 0;
     this.board = this.boardCreation();
     this.playerType = playerType;
-    this.ships = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer'];
     this.shots = [];
   }
   boardCreation() {
@@ -16,17 +15,6 @@ export class Gameboard {
     }
     return newBoard;
   }
-  // Basic properties - how many sunk ships / have all been sunk
-  shipWasSunk() {
-    this.sunkShips = this.sunkShips + 1;
-  }
-  getSunkShips() {
-    return this.sunkShips;
-  }
-  isAllLost() {
-    return this.sunkShips === 5;
-  }
-
   // Methods relating to gameboard - the content of square etc
   getSquareContent(x, y) {
     return this.board[x][y];
@@ -42,13 +30,15 @@ export class Gameboard {
     return this.board;
   }
 
-  // These were moved from Player - most likely they wont be needed at all as the board
-  // can be used to save and retrieve the same information to avoid redundancy
-  saveShot([x, y]) {
-    this.shots.push([x, y]);
+  // Ship properties - how many sunk ships / have all been sunk
+  shipWasSunk() {
+    this.sunkShips = this.sunkShips + 1;
   }
-  checkShots() {
-    return this.shots;
+  getSunkShips() {
+    return this.sunkShips;
+  }
+  isAllLost() {
+    return this.sunkShips === 5;
   }
 
   // To be used by the AI player for ship placement and shooty things
@@ -56,20 +46,17 @@ export class Gameboard {
     let coords = [];
     let i = 2;
     while (i > 0) {
-      let random = Math.random() * (7 - 0) + 0;
+      let random = Math.random() * (9 - 0) + 0;
       coords.push(Math.round(random));
       i--;
     }
-    // allows the method to be used when placing ships, error checking for
-    // viability of produced coords is done in gameboard
+    // allows the method to be used when placing ships
     if (placement === true) {
       return coords;
     }
     // Recursive case to check if shots array already contains the generated number
     if (
       this.shots.some((shotSquare) =>
-        // For some weird reason the coords will not find a match with contents of shots
-        // array unless there is a digit by digit check (something about deep equality?)
         shotSquare.every((digit, index) => digit === coords[index])
       )
     ) {
@@ -89,27 +76,6 @@ export class Gameboard {
     return orientationArray;
   }
 
-  // AI ship placement algo
-  aiShipPlacement() {
-    let orientationArray = this.getRandomOrientation();
-    let shipArray = this.ships;
-    let i = 0;
-    while (i < 5) {
-      let nextShip = new Ship(this.ships[i]);
-      console.log(nextShip);
-      this.placeShip(
-        this.getRandomCoordinates(true),
-        orientationArray[0],
-        nextShip,
-        'AI'
-      );
-      i++;
-      orientationArray.splice(0, 1);
-    }
-    let boardy = this.getFullBoard();
-    console.table(boardy);
-  }
-
   // Ships - placement, checking for possible collisions
   placeShip([x, y], orientation, ship, playerType) {
     let length = ship.getSquares();
@@ -120,17 +86,19 @@ export class Gameboard {
     if (
       playerType === 'AI' &&
       (this.legalMove([x, y], orientation, length) === false ||
-        this.isOccupied([x, y], orientation, length) === false)
+        this.notOccupied([x, y], orientation, length) === false)
     ) {
       let newCoords = this.getRandomCoordinates(true);
       return this.placeShip(newCoords, orientation, ship, playerType);
     } else if (
+      // this part is used to prevent the human player to make illegal placements
       this.legalMove([x, y], orientation, length) === false ||
-      this.isOccupied([x, y], orientation, length) === false
+      this.notOccupied([x, y], orientation, length) === false
     ) {
-      console.log('ship there already chief');
+      console.log('Illegal move');
+      return;
     }
-    // We continue with placement
+    // If coordinates are A-OK, we continue with placement
     if (orientation === 'horizontal') {
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
@@ -157,7 +125,7 @@ export class Gameboard {
     }
     return false;
   }
-  isOccupied([x, y], orientation, length) {
+  notOccupied([x, y], orientation, length) {
     if (orientation === 'horizontal') {
       while (length > 0) {
         if (typeof this.getSquareContent(x, y) === 'object') {
@@ -174,5 +142,31 @@ export class Gameboard {
       }
     }
     return true;
+  }
+  // AI ship placement algo
+  aiShipPlacement() {
+    let orientationArray = this.getRandomOrientation();
+    let shipArray = [
+      'carrier',
+      'battleship',
+      'cruiser',
+      'submarine',
+      'destroyer',
+    ];
+    let i = 0;
+    while (i < 5) {
+      let nextShip = new Ship(shipArray[i]);
+      console.log(nextShip);
+      this.placeShip(
+        this.getRandomCoordinates(true),
+        orientationArray[0],
+        nextShip,
+        'AI'
+      );
+      i++;
+      orientationArray.splice(0, 1);
+    }
+    let boardy = this.getFullBoard();
+    console.table(boardy);
   }
 }

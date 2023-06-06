@@ -221,3 +221,11 @@ The AI ship placement works and a _lot_ of stuff has been delegated to Gameboard
 Plans for this: constructing the function for ship placement phase for the player. This needs to take in a value for orientation and ship and coordinates. Ship will be created automatically based on an array with ship names that is read through in order, orierntation needs to be switched based on the button. Maybe make this a variable inside the player class, so it's easy to make the link to change it with a single function.
 
 Coordinates will be produced by the event listener that is already in place.
+
+#### Plans
+
+runGameLoop() will be a shell for things that happen in the game
+Build a method called gameEvent, which takes in an object from gridlistener.
+Then gameEvent will call the appropriate action depending on currentStage and what board the click happened in.
+IE. at the start allowing the player to place ships - the ships array in the gameboard is used as a "cutoff" to
+see when to trigger the next stage => gameplay

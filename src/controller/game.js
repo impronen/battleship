@@ -25,16 +25,18 @@ export class Game {
     return this.currentStage;
   }
   changeTurn(hit = false) {
-    let human = this.player1.getName();
-    let ai = this.player2.getName();
     if (hit === true) return;
-    if (this.currentPlayer === human) {
-      this.currentPlayer = ai;
+    if (this.currentPlayer === this.player1.getName()) {
+      this.currentPlayer = this.player2.getName();
     } else {
-      this.currentPlayer = human;
+      this.currentPlayer = this.player1.getName();
     }
   }
   changeCurrentStage() {
     this.currentStage = combat;
+  }
+  runGameLoop() {
+    console.log(this);
+    /* this.player2Board.aiShipPlacement(); */
   }
 }
