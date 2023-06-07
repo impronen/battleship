@@ -32,7 +32,6 @@ export class Gameboard {
   }
   hitSquare(x, y) {
     // This needs to be reworked as now board is used to store Ship objects
-    if (this.getSquareContent(x, y) === 'hit') return false;
     this.board[x][y] = 'hit';
   }
   getFullBoard() {
@@ -129,10 +128,10 @@ export class Gameboard {
   legalMove([x, y], orientation, length) {
     let lastSquare = [x, y];
     if (orientation === 'horizontal') {
-      lastSquare[1] = lastSquare[1] + length;
+      lastSquare[1] = lastSquare[1] - 1 + length;
       console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
     } else if (orientation === 'vertical') {
-      lastSquare[0] = lastSquare[0] + length;
+      lastSquare[0] = lastSquare[0] - 1 + length;
       console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
     }
     if (lastSquare[0] <= 9 && lastSquare[1] <= 9) {
@@ -190,9 +189,6 @@ export class Gameboard {
       eventObject.player
     );
     this.shipArray.splice(0, 1);
-    if (this.shipArray.length < 1) {
-      return false;
-    }
     let boardy = this.getFullBoard();
     console.table(boardy);
   }
