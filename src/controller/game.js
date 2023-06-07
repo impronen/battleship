@@ -33,19 +33,28 @@ export class Game {
     }
   }
   changeCurrentStage() {
-    this.currentStage = combat;
+    this.currentStage = 'combat';
   }
   startGameLoop() {
     console.log(this);
     /* this.player2Board.aiShipPlacement(); */
   }
   gameEvent(eventObject) {
-    console.log(eventObject);
-    if (this.currentStage === 'shipPlacement') {
+    // Event control for ship placement
+    if (
+      this.currentStage === 'shipPlacement' &&
+      this.player1Board.getShipArray().length > 1
+    ) {
       console.log('placement');
       this.player1Board.humanShipPlacement(eventObject);
-    } else {
-      console.log('combat');
+    } else if (
+      this.currentStage === 'shipPlacement' &&
+      this.player1Board.getShipArray().length === 1
+    ) {
+      this.player1Board.humanShipPlacement(eventObject);
+      console.log('go into combat');
+      this.changeCurrentStage();
+      console.log(this);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Player } from './player';
 import { Ship } from './ships';
+import { Game } from '../controller/game';
 
 export class Gameboard {
   constructor(playerType) {
@@ -30,11 +31,15 @@ export class Gameboard {
     this.board[x][y] = content;
   }
   hitSquare(x, y) {
+    // This needs to be reworked as now board is used to store Ship objects
     if (this.getSquareContent(x, y) === 'hit') return false;
     this.board[x][y] = 'hit';
   }
   getFullBoard() {
     return this.board;
+  }
+  getShipArray() {
+    return this.shipArray;
   }
 
   // Ship properties - how many sunk ships / have all been sunk
@@ -185,6 +190,9 @@ export class Gameboard {
       eventObject.player
     );
     this.shipArray.splice(0, 1);
+    if (this.shipArray.length < 1) {
+      return false;
+    }
     let boardy = this.getFullBoard();
     console.table(boardy);
   }
