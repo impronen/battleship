@@ -229,3 +229,17 @@ Build a method called gameEvent, which takes in an object from gridlistener.
 Then gameEvent will call the appropriate action depending on currentStage and what board the click happened in.
 IE. at the start allowing the player to place ships - the ships array in the gameboard is used as a "cutoff" to
 see when to trigger the next stage => gameplay
+
+### Thinking out loud in 7/6/23
+
+The ship placement kinda works, there is still some issues to be had if the player tries to set a ship to a place where it doesn't fit. I'll work on that later.
+
+Now, the combat loop:
+
+Combat controller escapes with a return if you try to shoot your own grid.
+After that, it needs to call the gameboard for the content of the coordinates.
+We need a check to see if there is an object there, signifying that there is a ship
+If no ship, check the content - if it's something else than "hit" - mark it as "hit"
+If object is found, call a method from that object that A) reduces the health of the ship
+and B) returns the reduced healt and ship type. If this returned value is 0, the ship is sunk and +1 is added to the sunkShips of the gameboard.
+If this value reaches 5, the gameboard player is reported as lost.
