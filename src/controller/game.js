@@ -35,8 +35,17 @@ export class Game {
   changeCurrentStage() {
     this.currentStage = combat;
   }
-  runGameLoop() {
+  startGameLoop() {
     console.log(this);
     /* this.player2Board.aiShipPlacement(); */
+  }
+  gameEvent(eventObject) {
+    console.log(eventObject);
+    if (this.currentStage === 'shipPlacement') {
+      console.log('placement');
+      this.player1Board.humanShipPlacement(eventObject);
+    } else {
+      console.log('combat');
+    }
   }
 }

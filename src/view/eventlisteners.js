@@ -15,13 +15,14 @@ export const events = (() => {
         new Player('antero', 'human'),
         new Player('Bob', 'AI')
       );
-      newGame.runGameLoop();
+      newGame.startGameLoop();
     });
   }
   function orientationListener() {
     const orientationButton = document.querySelector('#orientation');
     orientationButton.addEventListener('click', (event) => {
       orientation = orientation !== 'horizontal' ? 'horizontal' : 'vertical';
+      console.log(orientation);
     });
   }
   function gridListener(player) {
@@ -34,10 +35,10 @@ export const events = (() => {
 
     columns.forEach((column) => {
       column.addEventListener('click', (square) => {
-        console.log({
+        newGame.gameEvent({
           player: player,
-          x: Number(square.target.parentElement.dataset.index),
-          y: Number(square.target.dataset.index),
+          y: Number(square.target.parentElement.dataset.index),
+          x: Number(square.target.dataset.index),
           orientation: orientation,
         });
       });

@@ -7,6 +7,13 @@ export class Gameboard {
     this.board = this.boardCreation();
     this.playerType = playerType;
     this.shots = [];
+    this.shipArray = [
+      'carrier',
+      'battleship',
+      'cruiser',
+      'submarine',
+      'destroyer',
+    ];
   }
   boardCreation() {
     let newBoard = new Array(10);
@@ -100,6 +107,7 @@ export class Gameboard {
     }
     // If coordinates are A-OK, we continue with placement
     if (orientation === 'horizontal') {
+      console.log(`inside placeShip the coords are ${coordinates}`);
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
         coordinates[1]++;
@@ -117,8 +125,10 @@ export class Gameboard {
     let lastSquare = [x, y];
     if (orientation === 'horizontal') {
       lastSquare[1] = lastSquare[1] + length;
+      console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
     } else if (orientation === 'vertical') {
       lastSquare[0] = lastSquare[0] + length;
+      console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
     }
     if (lastSquare[0] <= 9 && lastSquare[1] <= 9) {
       return true;
@@ -143,20 +153,13 @@ export class Gameboard {
     }
     return true;
   }
-  // AI ship placement algo
+
   aiShipPlacement() {
     let orientationArray = this.getRandomOrientation();
-    let shipArray = [
-      'carrier',
-      'battleship',
-      'cruiser',
-      'submarine',
-      'destroyer',
-    ];
+
     let i = 0;
     while (i < 5) {
-      let nextShip = new Ship(shipArray[i]);
-      console.log(nextShip);
+      let nextShip = new Ship(this.shipArray[i]);
       this.placeShip(
         this.getRandomCoordinates(true),
         orientationArray[0],
@@ -166,6 +169,22 @@ export class Gameboard {
       i++;
       orientationArray.splice(0, 1);
     }
+    let boardy = this.getFullBoard();
+    console.table(boardy);
+  }
+
+  humanShipPlacement(eventObject) {
+    if (this.shipArray.length < 1) {
+      console.log('them ships were placed');
+    }
+    let nextShip = new Ship(this.shipArray[0]);
+    this.placeShip(
+      [eventObject.x, eventObject.y],
+      eventObject.orientation,
+      nextShip,
+      eventObject.player
+    );
+    this.shipArray.splice(0, 1);
     let boardy = this.getFullBoard();
     console.table(boardy);
   }
