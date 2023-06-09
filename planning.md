@@ -243,3 +243,13 @@ If no ship, check the content - if it's something else than "hit" - mark it as "
 If object is found, call a method from that object that A) reduces the health of the ship
 and B) returns the reduced healt and ship type. If this returned value is 0, the ship is sunk and +1 is added to the sunkShips of the gameboard.
 If this value reaches 5, the gameboard player is reported as lost.
+
+### More thinking, 9/6/23
+
+The ship placement works for both players. Somehow it's a bit awkward and i need to look into if the orientation chage is happening consistently or not.
+
+A hit on an enemy ship also works but does not prevent hitting the same spot again. A plan to avoid using shots array:
+
+have the gameboard shot checker first look at the _type_ of content of the square, if a string, do the checking if it's an empty one or has 'hit' in there. Then if a instance of Ship is detected, run wasItAlreadyHitThere() to check on the array.
+
+Also: to draw ships and other event to the board, build a drawActionToBoard() to dom. This will take in coordinates and action type (draw ship, draw hit to ship, draw a hit on ocean). This can then be used in events - with a loop for ship coordinates that get passed out from placement methods and single coordinates for hits. Ships will be just drawn with solid colors etc

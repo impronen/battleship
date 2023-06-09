@@ -2,6 +2,7 @@ export class Ship {
   constructor(type) {
     this.type = type;
     this.health = this.getSquares();
+    this.placesThatTookHits = [];
   }
 
   getSquares() {
@@ -20,9 +21,23 @@ export class Ship {
     return this.health;
   }
 
-  hit() {
+  hit(x, y) {
+    if (this.wasItAlreadyHitThere() === true) return;
     if (this.health >= 1) this.health = this.health - 1;
+    this.placesThatTookHits.push([y, x]);
     return this.health;
+  }
+  wasItAlreadyHitThere(x, y) {
+    let coords = [x, y];
+    if (
+      this.placesThatTookHits.some((shotSqare) =>
+        shotSqare.every((digit, index) => digit === coords[index])
+      )
+    ) {
+      console.log('this ship already took a hit there');
+      return true;
+    }
+    return false;
   }
 
   isSunk() {

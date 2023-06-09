@@ -37,8 +37,8 @@ export const events = (() => {
       column.addEventListener('click', (square) => {
         newGame.gameEvent({
           player: player,
-          y: Number(square.target.parentElement.dataset.index),
-          x: Number(square.target.dataset.index),
+          x: Number(square.target.parentElement.dataset.index),
+          y: Number(square.target.dataset.index),
           orientation: orientation,
         });
       });

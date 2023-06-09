@@ -93,7 +93,6 @@ export class Gameboard {
     let coordinates = [x, y];
     // Checks for legal moves
     // For AI new coordinates are generated until appropriate ones are found
-    console.log(`coordinates ${coordinates}, orientation ${orientation}`);
     if (
       playerType === 'AI' &&
       (this.legalMove([x, y], orientation, length) === false ||
@@ -107,20 +106,19 @@ export class Gameboard {
       this.notOccupied([x, y], orientation, length) === false
     ) {
       console.log('Illegal move');
-      return;
+      return false;
     }
     // If coordinates are A-OK, we continue with placement
     if (orientation === 'horizontal') {
-      console.log(`inside placeShip the coords are ${coordinates}`);
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
-        coordinates[1]++;
+        coordinates[0]++;
         length--;
       }
     } else if (orientation === 'vertical') {
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
-        coordinates[0]++;
+        coordinates[1]++;
         length--;
       }
     }
@@ -128,11 +126,11 @@ export class Gameboard {
   legalMove([x, y], orientation, length) {
     let lastSquare = [x, y];
     if (orientation === 'horizontal') {
-      lastSquare[1] = lastSquare[1] - 1 + length;
-      console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
-    } else if (orientation === 'vertical') {
       lastSquare[0] = lastSquare[0] - 1 + length;
-      console.log(`last square is ${lastSquare[0]}/${lastSquare[1]}`);
+      /*       console.log(`last square is ${lastSquare[0]},${lastSquare[1]}`); */
+    } else if (orientation === 'vertical') {
+      lastSquare[1] = lastSquare[1] - 1 + length;
+      /*       console.log(`last square is ${lastSquare[0]},${lastSquare[1]}`); */
     }
     if (lastSquare[0] <= 9 && lastSquare[1] <= 9) {
       return true;
@@ -142,16 +140,18 @@ export class Gameboard {
   notOccupied([x, y], orientation, length) {
     if (orientation === 'horizontal') {
       while (length > 0) {
-        if (typeof this.getSquareContent(x, y) === 'object') {
+        if (this.getSquareContent(x, y) instanceof Ship) {
           return false;
         }
-        y++;
+        x++;
         length--;
       }
     } else if (orientation === 'vertical') {
       while (length > 0) {
-        if (typeof this.getSquareContent(x, y) === 'object') return false;
-        x++;
+        if (this.getSquareContent(x, y) instanceof Ship) {
+          return false;
+        }
+        y++;
         length--;
       }
     }
@@ -178,16 +178,20 @@ export class Gameboard {
   }
 
   humanShipPlacement(eventObject) {
+    console.log('yeah we be placing');
     if (this.shipArray.length < 1) {
       console.log('them ships were placed');
     }
     let nextShip = new Ship(this.shipArray[0]);
-    this.placeShip(
-      [eventObject.x, eventObject.y],
-      eventObject.orientation,
-      nextShip,
-      eventObject.player
-    );
+    if (
+      this.placeShip(
+        [eventObject.y, eventObject.x],
+        eventObject.orientation,
+        nextShip,
+        eventObject.player
+      ) === false
+    )
+      return;
     this.shipArray.splice(0, 1);
     let boardy = this.getFullBoard();
     console.table(boardy);

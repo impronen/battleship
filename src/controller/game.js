@@ -34,6 +34,7 @@ export class Game {
   }
   changeCurrentStage() {
     this.currentStage = 'combat';
+    console.log('combat');
   }
   startGameLoop() {
     console.log(this);
@@ -49,6 +50,7 @@ export class Game {
     this.player1Board.humanShipPlacement(eventObject);
   }
   combatController(eventObject) {
+    console.log('we made it to combatcontroller');
     if (
       eventObject.player === 'human' &&
       this.currentPlayer == this.player1.getName()
@@ -88,7 +90,7 @@ export class Game {
 
   shipTakesHits(y, x) {
     const type = this.player2Board.getSquareContent(y, x).getType();
-    this.player2Board.getSquareContent(y, x).hit();
+    this.player2Board.getSquareContent(y, x).hit(y, x);
     const health = this.player2Board.getSquareContent(y, x).getHealth();
     console.log(`It's a hit on a ${type}. Health is down to ${health}`);
   }
