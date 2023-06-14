@@ -23,7 +23,20 @@ export const dom = (() => {
     createGrid(aigameboard);
   }
 
+  function drawActionToBoard(drawObject) {
+    if (drawObject.action === 'placement') drawShip(drawObject);
+    if (drawObject.action === 'shot') drawShot(drawObject);
+  }
+  function drawShip(drawObject) {
+    console.log('drawShip was called');
+  }
+
+  function drawShot(drawObject) {
+    console.log('drawShot was called');
+  }
+
   return {
     createGameboards,
+    drawActionToBoard,
   };
 })();

@@ -1,6 +1,7 @@
 import { Player } from './player';
 import { Ship } from './ships';
 import { Game } from '../controller/game';
+import { dom } from '../view/dom';
 
 export class Gameboard {
   constructor(playerType) {
@@ -112,12 +113,24 @@ export class Gameboard {
     if (orientation === 'horizontal') {
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
+        dom.drawActionToBoard({
+          action: 'placement',
+          player: playerType,
+          x: coordinates[0],
+          y: coordinates[1],
+        });
         coordinates[0]++;
         length--;
       }
     } else if (orientation === 'vertical') {
       while (length > 0) {
         this.setSquareContent(coordinates[0], coordinates[1], ship);
+        dom.drawActionToBoard({
+          action: 'placement',
+          player: playerType,
+          x: coordinates[0],
+          y: coordinates[1],
+        });
         coordinates[1]++;
         length--;
       }

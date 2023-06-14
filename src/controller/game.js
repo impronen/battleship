@@ -1,6 +1,7 @@
 import { Player } from '../model/player';
 import { Gameboard } from '../model/gameboard';
 import { Ship } from '../model/ships';
+import { dom } from '../view/dom';
 
 export class Game {
   constructor(player1, player2) {
@@ -50,7 +51,6 @@ export class Game {
     this.player1Board.humanShipPlacement(eventObject);
   }
   combatController(eventObject) {
-    console.log('we made it to combatcontroller');
     if (
       eventObject.player === 'human' &&
       this.currentPlayer == this.player1.getName()
@@ -72,7 +72,12 @@ export class Game {
       ) instanceof Ship
     ) {
       this.shipTakesHits(eventObject.y, eventObject.x);
-
+      dom.drawActionToBoard({
+        action: 'shot',
+        player: playerType,
+        x: coordinates[0],
+        y: coordinates[1],
+      });
       console.log(
         this.player2Board
           .getSquareContent(eventObject.y, eventObject.x)
@@ -84,6 +89,12 @@ export class Game {
       console.log('Already shot there chief');
     } else {
       this.player2Board.hitSquare(eventObject.y, eventObject.x);
+      dom.drawActionToBoard({
+        action: 'shot',
+        player: playerType,
+        x: coordinates[0],
+        y: coordinates[1],
+      });
       console.log('empty waters took a devastating hit');
     }
   }
