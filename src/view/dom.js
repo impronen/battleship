@@ -28,7 +28,13 @@ export const dom = (() => {
     if (drawObject.action === 'shot') drawShot(drawObject);
   }
   function drawShip(drawObject) {
-    console.log('drawShip was called');
+    let playerBoard = 'humangameboard';
+    if (drawObject.player === 'AI') playerBoard = 'aigameboard';
+    const selector = `.column[data-index="${drawObject.x}"] .cell:nth-child(${
+      drawObject.y + 1
+    })`;
+    const cell = document.querySelector(selector);
+    cell.classList.add('ship');
   }
 
   function drawShot(drawObject) {

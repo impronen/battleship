@@ -116,8 +116,8 @@ export class Gameboard {
         dom.drawActionToBoard({
           action: 'placement',
           player: playerType,
-          x: coordinates[0],
-          y: coordinates[1],
+          x: coordinates[1],
+          y: coordinates[0],
         });
         coordinates[0]++;
         length--;
@@ -128,8 +128,8 @@ export class Gameboard {
         dom.drawActionToBoard({
           action: 'placement',
           player: playerType,
-          x: coordinates[0],
-          y: coordinates[1],
+          x: coordinates[1],
+          y: coordinates[0],
         });
         coordinates[1]++;
         length--;

@@ -64,3 +64,8 @@ button {
 .cell:hover {
   background-color: var(--ut-orange);
 }
+
+.ship {
+  background-color: var(--blue-green);
+  /* border-color: var(--cool-gray); */
+}
