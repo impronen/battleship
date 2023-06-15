@@ -30,10 +30,12 @@ export const dom = (() => {
   function drawShip(drawObject) {
     let playerBoard = 'humangameboard';
     if (drawObject.player === 'AI') playerBoard = 'aigameboard';
-    const selector = `.column[data-index="${drawObject.x}"] .cell:nth-child(${
-      drawObject.y + 1
-    })`;
+    if (drawObject.player === 'human') playerBoard = 'humangameboard';
+    const selector = `.${playerBoard} .column[data-index="${
+      drawObject.x
+    }"] .cell:nth-child(${drawObject.y + 1})`;
     const cell = document.querySelector(selector);
+    console.log(cell);
     cell.classList.add('ship');
   }
 

@@ -191,7 +191,6 @@ export class Gameboard {
   }
 
   humanShipPlacement(eventObject) {
-    console.log('yeah we be placing');
     if (this.shipArray.length < 1) {
       console.log('them ships were placed');
     }
