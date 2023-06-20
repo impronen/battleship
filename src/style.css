@@ -67,5 +67,12 @@ button {
 
 .ship {
   background-color: var(--blue-green);
-  /* border-color: var(--cool-gray); */
+}
+
+.hitShip {
+  background-color: var(--deep-orange);
+}
+
+.hitOcean {
+  background-color: var(--ut-orange);
 }

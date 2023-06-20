@@ -31,16 +31,30 @@ export const dom = (() => {
     let playerBoard = 'humangameboard';
     if (drawObject.player === 'AI') playerBoard = 'aigameboard';
     if (drawObject.player === 'human') playerBoard = 'humangameboard';
-    const selector = `.${playerBoard} .column[data-index="${
-      drawObject.x
-    }"] .cell:nth-child(${drawObject.y + 1})`;
-    const cell = document.querySelector(selector);
-    console.log(cell);
+    const cell = cellSelector(playerBoard, drawObject);
     cell.classList.add('ship');
   }
 
   function drawShot(drawObject) {
-    console.log('drawShot was called');
+    let playerBoard = 'humangameboard';
+    if (drawObject.player === 'AI') playerBoard = 'aigameboard';
+    if (drawObject.player === 'human') playerBoard = 'humangameboard';
+    const cell = cellSelector(playerBoard, drawObject);
+    console.log(drawObject);
+    console.log(cell);
+    if (drawObject.target === 'ocean') {
+      cell.classList.add('hitOcean');
+    }
+    if (drawObject.target === 'ship') {
+      cell.classList.add('hitShip');
+    }
+  }
+
+  function cellSelector(playerBoard, drawObject) {
+    const selector = `.${playerBoard} .column[data-index="${
+      drawObject.x
+    }"] .cell:nth-child(${drawObject.y + 1})`;
+    return document.querySelector(selector);
   }
 
   return {

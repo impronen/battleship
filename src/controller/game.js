@@ -61,7 +61,7 @@ export class Game {
   }
 
   humanAttack(eventObject) {
-    console.log(eventObject);
+    /* console.log(eventObject); */
 
     this.player2Board.getSquareContent(eventObject.y, eventObject.x);
 
@@ -71,13 +71,19 @@ export class Game {
         eventObject.x
       ) instanceof Ship
     ) {
-      this.shipTakesHits(eventObject.y, eventObject.x);
+      // here pass the Ship into a function that checks the coordinates that have been hit
+      // if it returns true - return the whole thing
+      this.player2Board
+        .getSquareContent(eventObject.y, eventObject.x)
+        .hit(eventObject.y, eventObject.x);
       dom.drawActionToBoard({
         action: 'shot',
-        player: playerType,
-        x: coordinates[0],
-        y: coordinates[1],
+        target: 'ship',
+        player: eventObject.player,
+        x: eventObject.x,
+        y: eventObject.y,
       });
+      // here we need to have a change of player or just straight up call aiAttack
       console.log(
         this.player2Board
           .getSquareContent(eventObject.y, eventObject.x)
@@ -91,19 +97,23 @@ export class Game {
       this.player2Board.hitSquare(eventObject.y, eventObject.x);
       dom.drawActionToBoard({
         action: 'shot',
-        player: playerType,
-        x: coordinates[0],
-        y: coordinates[1],
+        target: 'ocean',
+        player: eventObject.player,
+        x: eventObject.x,
+        y: eventObject.y,
       });
       console.log('empty waters took a devastating hit');
+      // here we need to have a change of player or just straight up call aiAttack
     }
   }
 
-  shipTakesHits(y, x) {
-    const type = this.player2Board.getSquareContent(y, x).getType();
-    this.player2Board.getSquareContent(y, x).hit(y, x);
-    const health = this.player2Board.getSquareContent(y, x).getHealth();
-    console.log(`It's a hit on a ${type}. Health is down to ${health}`);
+  aiAttack() {
+    // we need a set of random coordinates
+    // use recursion to check if there is already a hit in those coordinates
+    // pass those to a checker that looks if there is a ship
+    // if the ship has been hit there, again recursion
+    // if ship, this.player1Board.getSquareContent(eventObject.y, eventObject.x).hit(eventObject.y, eventObject.x);
+    // if not, this.player1Board.hitSquare(eventObject.y, eventObject.x);
   }
 
   gameEvent(eventObject) {
