@@ -36,10 +36,8 @@ export class Game {
   changeCurrentStage() {
     this.currentStage = 'combat';
     dom.combatDisplayer();
-    console.log('combat');
   }
   startGameLoop() {
-    console.log(this);
     this.player2Board.aiShipPlacement();
   }
   placementController(eventObject) {
@@ -92,7 +90,7 @@ export class Game {
     } else if (
       this.player2Board.getSquareContent(eventObject.y, eventObject.x) === 'hit'
     ) {
-      console.log('Already shot there chief');
+      alert('Already shot there chief');
     } else {
       this.player2Board.hitSquare(eventObject.y, eventObject.x);
       dom.drawActionToBoard({
@@ -102,17 +100,12 @@ export class Game {
         x: eventObject.x,
         y: eventObject.y,
       });
-      console.log('empty waters took a devastating hit');
       this.aiAttack();
     }
   }
 
   aiAttack() {
     let shotLocation = this.player1Board.getRandomCoordinates();
-    console.log(shotLocation);
-    console.log(
-      this.player1Board.getSquareContent(shotLocation[0], shotLocation[1])
-    );
     if (
       this.player1Board.getSquareContent(
         shotLocation[0],
@@ -126,7 +119,6 @@ export class Game {
       ) {
         return this.aiAttack();
       } else {
-        console.log('ship is hit but not there yet');
         this.player1Board
           .getSquareContent(shotLocation[0], shotLocation[1])
           .hit(shotLocation[0], shotLocation[1]);
@@ -171,7 +163,6 @@ export class Game {
         return true;
       }
     } else if (this.player2Board.isAllLost()) {
-      console.log('AI LOST');
       return true;
     }
     return false;

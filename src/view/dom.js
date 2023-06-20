@@ -29,7 +29,7 @@ export const dom = (() => {
   }
   function drawShip(drawObject) {
     let playerBoard = 'humangameboard';
-    if (drawObject.player === 'AI') playerBoard = 'aigameboard';
+    if (drawObject.player === 'AI') return;
     if (drawObject.player === 'human') playerBoard = 'humangameboard';
     const cell = cellSelector(playerBoard, drawObject);
     cell.classList.add('ship');
@@ -57,7 +57,6 @@ export const dom = (() => {
   }
 
   function declareWinner(winner) {
-    console.log(winner);
     const dialog = document.querySelector('dialog');
     const text = document.querySelector('.winner');
     dialog.classList.add('dialogVisible');

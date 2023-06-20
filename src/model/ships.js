@@ -25,7 +25,6 @@ export class Ship {
     if (this.wasItAlreadyHitThere(y, x) === true) return;
     if (this.health >= 1) this.health = this.health - 1;
     this.placesThatTookHits.push([y, x]);
-    console.log(this.health);
     return this.health;
   }
   wasItAlreadyHitThere(y, x) {
@@ -35,10 +34,8 @@ export class Ship {
         shotSqare.every((digit, index) => digit === coords[index])
       )
     ) {
-      console.log('this ship already took a hit there');
       return true;
     }
-    console.log('no hits there yet');
     return false;
   }
 

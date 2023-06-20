@@ -50,7 +50,6 @@ export class Gameboard {
     return this.sunkShips;
   }
   isAllLost() {
-    console.log(`sunk ships: ${this.sunkShips}`);
     return this.sunkShips === 5;
   }
 
@@ -108,7 +107,7 @@ export class Gameboard {
       this.legalMove([x, y], orientation, length) === false ||
       this.notOccupied([x, y], orientation, length) === false
     ) {
-      console.log('Illegal move');
+      alert('Illegal move');
       return false;
     }
     // If coordinates are A-OK, we continue with placement
@@ -142,10 +141,8 @@ export class Gameboard {
     let lastSquare = [x, y];
     if (orientation === 'horizontal') {
       lastSquare[0] = lastSquare[0] - 1 + length;
-      /*       console.log(`last square is ${lastSquare[0]},${lastSquare[1]}`); */
     } else if (orientation === 'vertical') {
       lastSquare[1] = lastSquare[1] - 1 + length;
-      /*       console.log(`last square is ${lastSquare[0]},${lastSquare[1]}`); */
     }
     if (lastSquare[0] <= 9 && lastSquare[1] <= 9) {
       return true;
@@ -188,13 +185,10 @@ export class Gameboard {
       i++;
       orientationArray.splice(0, 1);
     }
-    let boardy = this.getFullBoard();
-    console.table(boardy);
   }
 
   humanShipPlacement(eventObject) {
     if (this.shipArray.length < 1) {
-      console.log('them ships were placed');
     }
     let nextShip = new Ship(this.shipArray[0]);
     if (
@@ -207,7 +201,5 @@ export class Gameboard {
     )
       return;
     this.shipArray.splice(0, 1);
-    let boardy = this.getFullBoard();
-    console.table(boardy);
   }
 }
