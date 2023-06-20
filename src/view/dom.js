@@ -58,11 +58,33 @@ export const dom = (() => {
 
   function declareWinner(winner) {
     console.log(winner);
+    const dialog = document.querySelector('dialog');
+    const text = document.querySelector('.winner');
+    dialog.classList.add('dialogVisible');
+    text.innerText = `The winner is the ${winner}`;
+    dialog.showModal();
+    events.resetListener();
+  }
+
+  function orientationDisplayer() {
+    const orientationDisplay = document.querySelector('.orientationDisplay');
+    if (orientationDisplay.innerText === 'horizontal') {
+      orientationDisplay.innerText = 'vertical';
+    } else {
+      orientationDisplay.innerText = 'horizontal';
+    }
+  }
+
+  function combatDisplayer() {
+    const orientationDisplay = document.querySelector('.orientationDisplay');
+    orientationDisplay.innerText = 'COMBAT! Shoot away!';
   }
 
   return {
     createGameboards,
     drawActionToBoard,
     declareWinner,
+    orientationDisplayer,
+    combatDisplayer,
   };
 })();

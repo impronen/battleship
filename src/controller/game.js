@@ -35,7 +35,7 @@ export class Game {
   }
   changeCurrentStage() {
     this.currentStage = 'combat';
-    // call a dom method to show combat has started
+    dom.combatDisplayer();
     console.log('combat');
   }
   startGameLoop() {

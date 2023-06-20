@@ -4,7 +4,7 @@ import { Player } from '../model/player';
 
 export const events = (() => {
   let humanGrid = document.querySelector('.humangameboard');
-  let orientation = 'horizontal';
+  let orientation = 'vertical';
   let newGame = undefined;
 
   function startListener() {
@@ -22,6 +22,7 @@ export const events = (() => {
     const orientationButton = document.querySelector('#orientation');
     orientationButton.addEventListener('click', (event) => {
       orientation = orientation !== 'horizontal' ? 'horizontal' : 'vertical';
+      dom.orientationDisplayer(orientation);
       console.log(orientation);
     });
   }
@@ -45,5 +46,12 @@ export const events = (() => {
     });
   }
 
-  return { startListener, orientationListener, gridListener };
+  function resetListener() {
+    let resetButton = document.querySelector('.reset');
+    resetButton.addEventListener('click', () => {
+      location.reload();
+    });
+  }
+
+  return { startListener, orientationListener, gridListener, resetListener };
 })();

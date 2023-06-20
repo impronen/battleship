@@ -32,12 +32,36 @@ button {
   padding: 7px;
 }
 
-.top,
+dialog {
+  z-index: 10;
+  margin-top: 10px;
+  padding: 5%;
+  background: var(--blue-green);
+  border: none;
+  border-radius: 1rem;
+}
+
+dialog::backdrop {
+  background-color: hsla(0, 0%, 0%, 0.404);
+}
+
+.dialogVisible {
+  display: flex;
+  flex-direction: column;
+}
+
 .controls,
 .gameboard-container {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 }
 
