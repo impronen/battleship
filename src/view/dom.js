@@ -36,13 +36,11 @@ export const dom = (() => {
   }
 
   function drawShot(drawObject) {
-    console.log(drawObject);
     let playerBoard = 'humangameboard';
     if (drawObject.player === 'AI') playerBoard = 'aigameboard';
     if (drawObject.player === 'human') playerBoard = 'humangameboard';
     const cell = cellSelector(playerBoard, drawObject);
-    console.log(drawObject);
-    console.log(cell);
+
     if (drawObject.target === 'ocean') {
       cell.classList.add('hitOcean');
     }
@@ -58,8 +56,13 @@ export const dom = (() => {
     return document.querySelector(selector);
   }
 
+  function declareWinner(winner) {
+    console.log(winner);
+  }
+
   return {
     createGameboards,
     drawActionToBoard,
+    declareWinner,
   };
 })();

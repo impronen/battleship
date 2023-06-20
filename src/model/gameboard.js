@@ -50,6 +50,7 @@ export class Gameboard {
     return this.sunkShips;
   }
   isAllLost() {
+    console.log(`sunk ships: ${this.sunkShips}`);
     return this.sunkShips === 5;
   }
 

@@ -78,12 +78,17 @@ export class Game {
         x: eventObject.x,
         y: eventObject.y,
       });
-      this.aiAttack();
-      console.log(
+      if (
         this.player2Board
           .getSquareContent(eventObject.y, eventObject.x)
-          .getHealth()
-      );
+          .isSunk()
+      ) {
+        this.player2Board.shipWasSunk();
+      }
+      if (this.winChecker()) {
+        dom.declareWinner('human');
+      }
+      this.aiAttack();
     } else if (
       this.player2Board.getSquareContent(eventObject.y, eventObject.x) === 'hit'
     ) {
@@ -114,11 +119,6 @@ export class Game {
         shotLocation[1]
       ) instanceof Ship
     ) {
-      console.log(
-        this.player1Board
-          .getSquareContent(shotLocation[0], shotLocation[1])
-          .wasItAlreadyHitThere(shotLocation[0], shotLocation[1])
-      );
       if (
         this.player1Board
           .getSquareContent(shotLocation[0], shotLocation[1])
@@ -130,6 +130,13 @@ export class Game {
         this.player1Board
           .getSquareContent(shotLocation[0], shotLocation[1])
           .hit(shotLocation[0], shotLocation[1]);
+        if (
+          this.player1Board
+            .getSquareContent(shotLocation[0], shotLocation[1])
+            .isSunk()
+        ) {
+          this.player1Board.shipWasSunk();
+        }
         dom.drawActionToBoard({
           action: 'shot',
           target: 'ship',
@@ -137,6 +144,9 @@ export class Game {
           x: shotLocation[1],
           y: shotLocation[0],
         });
+        if (this.winChecker('AI')) {
+          dom.declareWinner('AI');
+        }
       }
     } else if (
       this.player1Board.getSquareContent(shotLocation[0], shotLocation[1]) ===
@@ -153,13 +163,18 @@ export class Game {
         y: shotLocation[0],
       });
     }
-    /* this.player1Board.getSquareContent(shotLocation[0], shotLocation[1]); */
-    // we need a set of random coordinates
-    // use recursion to check if there is already a hit in those coordinates
-    // pass those to a checker that looks if there is a ship
-    // if the ship has been hit there, again recursion
-    // if ship, this.player1Board.getSquareContent(eventObject.y, eventObject.x).hit(eventObject.y, eventObject.x);
-    // if not, this.player1Board.hitSquare(eventObject.y, eventObject.x);
+  }
+
+  winChecker(player) {
+    if (player === 'AI') {
+      if (this.player1Board.isAllLost()) {
+        return true;
+      }
+    } else if (this.player2Board.isAllLost()) {
+      console.log('AI LOST');
+      return true;
+    }
+    return false;
   }
 
   gameEvent(eventObject) {
