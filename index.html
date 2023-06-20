@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+  <script defer src="runtime.bundle.js"></script><script defer src="main.bundle.js"></script></head>
+  <header>
+    <h1>BATTLESHIP</h1>
+  </header>
+  <body>
+    <main>
+      <div class="top">
+        <div class="player">
+          <h3 class="playertype">AI</h3>
+          <h3 class="aiplayerName"></h3>
+        </div>
+        <div class="player">
+          <h3 class="playertype">HUMAN</h3>
+          <h3 class="humanplayerName"></h3>
+        </div>
+      </div>
+      <div class="currentPlayer"></div>
+      <dialog>
+        <p class="winner"></p>
+        <button class="reset">Reset</button>
+      </dialog>
+      <div class="gameboard-container">
+        <div class="aigameboard"></div>
+        <div class="humangameboard"></div>
+      </div>
+      <div class="guidance-box"></div>
+      <div class="controls">
+        <button id="orientation">Orientation</button>
+        <div class="orientationDisplay">horizontal</div>
+        <button id="start">START</button>
+      </div>
+      <div class="help">
+        <p class="start">Start game by pressing start</p>
+        <p class="placement">
+          The computer will place it's ship and then you can place yours. The
+          orientation shows which way yours will go. The vertical ships are
+          placed down starting from your cursor and horizontal ones to the left.
+          There is no display for what ship is being placed, cause I didn't feel
+          like making one.
+        </p>
+        <p class="combat">
+          When combat starts, it will continue until one wins.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
