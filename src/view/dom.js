@@ -36,6 +36,7 @@ export const dom = (() => {
   }
 
   function drawShot(drawObject) {
+    console.log(drawObject);
     let playerBoard = 'humangameboard';
     if (drawObject.player === 'AI') playerBoard = 'aigameboard';
     if (drawObject.player === 'human') playerBoard = 'humangameboard';

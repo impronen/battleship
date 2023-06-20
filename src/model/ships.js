@@ -21,14 +21,14 @@ export class Ship {
     return this.health;
   }
 
-  hit(x, y) {
-    if (this.wasItAlreadyHitThere() === true) return;
+  hit(y, x) {
+    if (this.wasItAlreadyHitThere(y, x) === true) return;
     if (this.health >= 1) this.health = this.health - 1;
     this.placesThatTookHits.push([y, x]);
     return this.health;
   }
-  wasItAlreadyHitThere(x, y) {
-    let coords = [x, y];
+  wasItAlreadyHitThere(y, x) {
+    let coords = [y, x];
     if (
       this.placesThatTookHits.some((shotSqare) =>
         shotSqare.every((digit, index) => digit === coords[index])

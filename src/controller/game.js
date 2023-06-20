@@ -35,6 +35,7 @@ export class Game {
   }
   changeCurrentStage() {
     this.currentStage = 'combat';
+    // call a dom method to show combat has started
     console.log('combat');
   }
   startGameLoop() {
@@ -61,18 +62,12 @@ export class Game {
   }
 
   humanAttack(eventObject) {
-    /* console.log(eventObject); */
-
-    this.player2Board.getSquareContent(eventObject.y, eventObject.x);
-
     if (
       this.player2Board.getSquareContent(
         eventObject.y,
         eventObject.x
       ) instanceof Ship
     ) {
-      // here pass the Ship into a function that checks the coordinates that have been hit
-      // if it returns true - return the whole thing
       this.player2Board
         .getSquareContent(eventObject.y, eventObject.x)
         .hit(eventObject.y, eventObject.x);
@@ -83,7 +78,7 @@ export class Game {
         x: eventObject.x,
         y: eventObject.y,
       });
-      // here we need to have a change of player or just straight up call aiAttack
+      this.aiAttack();
       console.log(
         this.player2Board
           .getSquareContent(eventObject.y, eventObject.x)
@@ -103,11 +98,62 @@ export class Game {
         y: eventObject.y,
       });
       console.log('empty waters took a devastating hit');
-      // here we need to have a change of player or just straight up call aiAttack
+      this.aiAttack();
     }
   }
 
   aiAttack() {
+    let shotLocation = this.player1Board.getRandomCoordinates();
+    console.log(shotLocation);
+    console.log(
+      this.player1Board.getSquareContent(shotLocation[0], shotLocation[1])
+    );
+    if (
+      this.player1Board.getSquareContent(
+        shotLocation[0],
+        shotLocation[1]
+      ) instanceof Ship
+    ) {
+      console.log(
+        this.player1Board
+          .getSquareContent(shotLocation[0], shotLocation[1])
+          .wasItAlreadyHitThere(shotLocation[0], shotLocation[1])
+      );
+      if (
+        this.player1Board
+          .getSquareContent(shotLocation[0], shotLocation[1])
+          .wasItAlreadyHitThere(shotLocation[0], shotLocation[1]) === true
+      ) {
+        return this.aiAttack();
+      } else {
+        console.log('ship is hit but not there yet');
+        this.player1Board
+          .getSquareContent(shotLocation[0], shotLocation[1])
+          .hit(shotLocation[0], shotLocation[1]);
+        dom.drawActionToBoard({
+          action: 'shot',
+          target: 'ship',
+          player: 'human',
+          x: shotLocation[1],
+          y: shotLocation[0],
+        });
+      }
+    } else if (
+      this.player1Board.getSquareContent(shotLocation[0], shotLocation[1]) ===
+      'hit'
+    ) {
+      return this.aiAttack();
+    } else {
+      this.player1Board.hitSquare(shotLocation[0], shotLocation[1]);
+      dom.drawActionToBoard({
+        action: 'shot',
+        target: 'ocean',
+        player: 'human',
+        x: shotLocation[1],
+        y: shotLocation[0],
+      });
+    }
+    /* this.player1Board.getSquareContent(shotLocation[0], shotLocation[1]); */
     // we need a set of random coordinates
     // use recursion to check if there is already a hit in those coordinates
     // pass those to a checker that looks if there is a ship

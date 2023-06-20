@@ -75,6 +75,7 @@ export class Gameboard {
       return this.getRandomCoordinates();
     }
     this.shots.push(coords);
+    return coords;
   }
   getRandomOrientation() {
     let orientationArray = [];
